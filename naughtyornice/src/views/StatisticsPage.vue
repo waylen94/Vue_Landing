@@ -9,10 +9,10 @@
 
 <!--full details bubble chart-->
 
-    <!--   <div class="col-md-10 content jumbotron">
+<!--       <div class="col-md-10 content jumbotron">
           <canvas id = "bubble-chart"></canvas>
-        </div>
- -->
+        </div -->
+
 <!--full details table chart-->
 
  <div class="col-md-10 row content jumbotron">
@@ -76,7 +76,7 @@ data () {
       return{
       posts : [''],
       page: 1,
-      perPage: 9,
+      perPage: 5,
       pages: [],
       day0: 44,
       day1: 64,
@@ -131,43 +131,17 @@ data () {
           data: {
             labels: "Africa",
             datasets: [
-              {
-                label: ["China"],
-                backgroundColor: "rgba(255,221,50,0.2)",
-                borderColor: "rgba(255,221,50,1)",
-                data: [{
-                  x: 21269017,
-                  y: 5.245,
-                  r: 15
-                }]
-              }, {
-                label: ["Denmark"],
-                backgroundColor: "rgba(60,186,159,0.2)",
-                borderColor: "rgba(60,186,159,1)",
-                data: [{
-                  x: 258702,
-                  y: 7.526,
-                  r: 10
-                }]
-              }, {
-                label: ["Germany"],
-                backgroundColor: "rgba(0,0,0,0.2)",
-                borderColor: "#000",
-                data: [{
-                  x: 3979083,
-                  y: 6.994,
-                  r: 15
-                }]
-              }, {
-                label: ["Japan"],
-                backgroundColor: "rgba(193,46,12,0.2)",
-                borderColor: "rgba(193,46,12,1)",
-                data: [{
-                  x: 4931877,
-                  y: 5.921,
-                  r: 15
-                }]
-              }
+// Json-format example
+  // {
+  //               label: ["Denmark"],
+  //               backgroundColor: "rgba(60,186,159,0.2)",
+  //               borderColor: "rgba(60,186,159,1)",
+  //               data: [{
+  //                 x: 258702,
+  //                 y: 7.526,
+  //                 r: 10
+  //               }]
+  //             },
             ]
           },
           options: {
@@ -208,17 +182,16 @@ data () {
     },
 
     getPosts () {
-      const storage = localStorage;
       let items = [];
       let data = [];
 
-      for(let i = 0; i < storage.length-1; i++){
-         items = ls.getItem(storage.key(i));
+      for(let i = 0; i < localStorage.length-1; i++){
+         items = ls.getItem(localStorage.key(i));
 
             for(let j = 0; j < items.length; j++){
                     this.posts.push(
                           {
-                            first: storage.key(i),
+                            first: localStorage.key(i),
                             second:items[j].nickname,
                             third:items[j].email,
                             fourth:items[j].subject,
@@ -227,7 +200,7 @@ data () {
                          });
                   };
 
-         }
+         };
 
     },
     setPages () {
@@ -245,14 +218,8 @@ data () {
     },
 
     planetchart_data(){
-
-      const storage = localStorage;
-      let items = [];
-      let date = 0;
-      let j = 0;
-
       if (ls.getItem(moment().subtract(0, 'days').format('L')) != null){
-        this.day0 =Number(ls.getItem(moment().subtract(0, 'days').format('L')).length);
+        this.day0 = Number(ls.getItem(moment().subtract(0, 'days').format('L')).length);
       }
       if (ls.getItem(moment().subtract(1, 'days').format('L')) != null){
         this.day1 = Number(ls.getItem(moment().subtract(1, 'days').format('L')).length);
@@ -282,13 +249,11 @@ data () {
     }
   },
   watch: {
-
     posts () {
       this.setPages();
     }
 
   },
-
   created(){
     this.getPosts();
     this.planetchart_data();
@@ -299,15 +264,9 @@ data () {
     }
   },
 mounted() {
-  // this.createChart('bubble-chart', this.bubbleChartData);
-
-
-  // console.log(this.day0);
-  // console.log(this.day1);
-  // console.log(this.planetChartData.data.datasets[0].data);
   this.planetChartData.data.datasets[0].data = [this.day6, this.day5, this.day4, this.day3, this.day2, this.day1, this.day0];
-  // console.log(this.planetChartData.data.datasets[0].data);
   this.createChart('planet-chart', this.planetChartData);
+  this.createChart('bubble-chart', this.bubbleChartData)
 }
 
 

@@ -2,7 +2,10 @@
   <div class="container">
     <div class="jumbotron">
       <div class="container">
-        <h1><router-link to="/"><img src="./assets/TeamMint.png" width = "125px"></router-link>Team Mint Static Website</h1>
+        <div class ="row">
+        <h1><router-link to="/"><img src="./assets/TeamMint.png" width = "125px"></router-link>Team Mint </h1>
+
+        </div>
         <router-link to="/auth/register" class="btn btn-primary btn-lg" role="button">Purchase</router-link>
          <router-link to="/statistics" class="btn btn-primary btn-lg" role="button">Administrator</router-link>
          <router-view/>
@@ -21,6 +24,8 @@ export default {
   components: {
   }
 }
+
+
 </script>
 
 <style lang="scss">
